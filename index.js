@@ -49,5 +49,18 @@ $(document).ready(function() {
             $(this).parent().text($(this).parent().data('value'));
         });
     }
+    
+    //make sure correct userID is submitted upon hitting the enter key
+    $(document).on('keypress', 'input[type="text"]', function(event) {
+        var code = event.keyCode || event.which;
+        
+        //"enter" key code
+        if(code == 13) {
+            event.preventDefault();
+            var row = $(this).parents('tr');
+            
+            row.find('.editButton').click();
+        }    
+    });
 
 });

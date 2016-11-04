@@ -44,9 +44,9 @@ class IndexHandler extends PageHandler {
                         <td class=\"login\" data-value=\"{$user->login}\">{$user->login}</td>
                         <td class=\"password\" data-value=\"{$user->password}\">{$user->password}</td>
                         <td class=\"action\">
-                            <span class=\"editButtons\">
-                                <button class=\"cancel\">Cancel</buttton>
+                            <span class=\"editButtons\" data-value=\"{$user->userID}\">
                                 <button type=\"submit\" name=\"editUser\" class=\"editButton\" value=\"{$user->userID}\">Submit</button>
+                                <button class=\"cancel\">Cancel</button>
                             </span>
                             <button class=\"showEdit\">Edit</button> /
                             <button type=\"submit\" name=\"deleteUser\" class=\"deleteButton\" value=\"{$user->userID}\">Delete</button>
