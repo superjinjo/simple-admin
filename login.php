@@ -58,6 +58,17 @@ if(isset($_POST['login_submit'])) {
 <html>
 <head>
     <title>Log in</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').on('submit', function(event) {
+                if(!$('#login').val() || !$('#password').val()) {
+                    event.preventDefault();
+                    alert('One or more fields are empty!');
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
