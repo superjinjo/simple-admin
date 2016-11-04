@@ -66,6 +66,22 @@ class UserRepository {
     }
 
     /**
+     * Gets total number of users
+     *
+     * @return int    total users
+     */
+    public function getUserCount() {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) as numUsers FROM users");
+
+        if(!$stmt->execute()) {
+            return 0;
+        }
+
+        $row = $stmt->fetch();
+        return $row['numUsers'];
+    }
+
+    /**
      * Gets the userID based on matching login and password. If they don't match,
      * then the function returns null.
      *
@@ -139,7 +155,7 @@ class UserRepository {
         }
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if(!empty($row->login_exists)) {
+        if(!empty($row['login_exists'])) {
             return 'Login already exists.';
         }
         
