@@ -1,39 +1,55 @@
 <?php
 include('db.php');
 include('UserRepository.php');
-session_start();
+include('PageHandler.php');
 
-//if user is already logged in, redirect to users page
-if(isset($_SESSION['userID'])) {
-    header('Location: index.php');
-    die();
-}
+class LoginHandler extends PageHandler {
+    /**
+     * Redirects if user is logged out
+     *
+     */
+    public function checkAccess() {
+        $this->maybeStartSession();
 
-$errorMessage;
-if(isset($_POST['login_submit'])) {
-    if(empty($_POST['login']) || empty($_POST['password'])) {
-        $errorMessage = 'One or more fields are empty!';
-    } else {
-        $pdo = createPDO();
-        if(!($pdo instanceof PDO)) {
-            $errorMessage = $pdo;
+        //If user is not logged in, redirect to login page
+        if(isset($_SESSION['userID'])) {
+            header('Location: index.php');
+            die();
         }
     }
 
-    if(empty($errorMessage)) {
-        $repo = new UserRepository($pdo);
+    /**
+     * Handles POST action by checking login and password and redirecting to index page
+     * if it's valid
+     */
+    public function handlePost() {
+        if(empty($_POST['login']) || empty($_POST['password'])) {
+            $this->errors[] = 'One or more fields are empty!';
+        }
 
-        $userID = $repo->checkUser($_POST['login'], $_POST['password']);
+        $repository = $this->getRepository();
+
+        if(!empty($this->errors)) {
+            return;
+        }
+
+        $userID = $repository->checkUser($_POST['login'], $_POST['password']);
 
         if(!empty($userID)) {
             $_SESSION['userID'] = $userID;
 
             header('Location: index.php');
             die();
-        } else {
-            $errorMessage = 'Login and password didn\'t match!';
         }
+
+        $this->errors[] = 'Login and password didn\'t match!';
     }
+}
+
+$handler = new LoginHandler();
+
+if(isset($_POST['login_submit'])) {
+    $handler->handlePost();
 }
 
 ?>
@@ -45,9 +61,7 @@ if(isset($_POST['login_submit'])) {
 </head>
 
 <body>
-    <?php if(!empty($errorMessage)) : ?>
-    <div class="error"><?php echo $errorMessage; ?></div>
-    <?php endif; ?>
+    <?php echo $handler->errorMessages(); ?>
     
     <form action="login.php" method="post">
         <label for="login">Login: <input type="text" id="login" name="login" /></label><br />
