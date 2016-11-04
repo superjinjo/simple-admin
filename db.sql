@@ -24,13 +24,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table boberdoo.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`userID`, `first_name`, `last_name`, `login`, `password`) VALUES
 	(1, 'Nicole', 'Martinez', 'nmartinez', 'password'),
-	(2, 'Banjo', 'the Bear', 'banjo64', 'kazooie');
+	(2, 'Banjo', 'the Bear', 'banjo64', 'kazooie'),
+	(4, 'Kazooie', 'the Bird', 'gruntysucks', 'abc13'),
+	(6, 'Ben', 'Button', 'BenButton1', 'abc1234'),
+	(7, 'Jenny', 'May', 'jenmay12', 'cranberries'),
+	(8, 'Gloria', 'Jean', 'coffeeLover', 'coffee4life'),
+	(9, 'Phillip', 'Fry', 'pfry', 'pizza'),
+	(10, 'Justin', 'Smith', 'jvs', 'passwordjvs'),
+	(11, 'Sara', 'Johnson', 'sjohnson', 'pwjohnson'),
+	(12, 'Freddy', 'Mercury', 'queen4life', '123789'),
+	(13, 'Benji', 'The Cat', 'foodeater89', 'ilovefood'),
+	(14, 'Oliver', 'The Cat', 'papereater', 'iamajerk');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

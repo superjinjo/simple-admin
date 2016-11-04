@@ -63,6 +63,20 @@ class IndexHandler extends PageHandler {
         if($userCount <= $limit) {
             return '';
         }
+
+        $output = '<div class="pagination">';
+
+        $pages = ceil($userCount / $limit);
+
+        for($i = 1; $i <= $pages; $i++) {
+            if($i == $currentPage) {
+                $output .= '<span class="currentPage">'.$i.'</span> ';
+            } else {
+                $output .= '<a href="index.php?page='.$i.'">'.$i.'</a> ';
+            }
+        }
+
+        return trim($output) . '</div>';
     }
 
     public function handlePost() {
