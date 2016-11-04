@@ -70,6 +70,24 @@ $postMessage = !empty($_POST) ? $handler->handlePost() : null;
 <head>
     <title>Add New User</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').on('submit', function(event) {
+                var emptyValues = false;
+
+                $('input[type="text"]').each(function() {
+                    if(!$(this).val()) {
+                        emptyValues = true;
+                    }
+                });
+
+                if(emptyValues) {
+                    event.preventDefault();
+                    alert('One or more fields are empty!');
+                }
+            });
+        });
+    </script>
 
 </head>
 
