@@ -18,7 +18,7 @@ if(!isset($_SESSION['userID'])) {
 </head>
 
 <body>
-    <h1>User Administration</h1>
+    <h1>User Management</h1>
 
 
 
