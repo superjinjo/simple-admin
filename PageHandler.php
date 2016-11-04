@@ -67,7 +67,7 @@ class PageHandler {
         return '<div class="menu">
             <ul>
                 <li><a href="index.php">User Mangement</a></li>
-                <li><a href="#">Add New User</a></li>
+                <li><a href="new-user.php">Add New User</a></li>
                 <li><a href="#">Downloads</a></li>
                 <li><a href="logout.php">Log out</a></li>
             </ul>

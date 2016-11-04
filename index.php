@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('config.php');
 include('UserRepository.php');
 include('PageHandler.php');
 
@@ -9,17 +9,17 @@ class IndexHandler extends PageHandler {
         $repository = $this->getRepository();
 
         $userCount = $repository->getUserCount();
-        $limit = 5;
+
         if(isset($_GET['page']) && (int) $_GET['page'] > 0) {
             $page = (int) $_GET['page'];
         } else {
             $page = 1;
         }
 
-        $offset = ($page - 1) * $limit;
+        $offset = ($page - 1) * PAGE_LIMIT;
 
-        $links = $this->pageLinks($limit, $userCount, $page);
-        $users = $repository->getUsers($limit, $offset);
+        $links = $this->pageLinks(PAGE_LIMIT, $userCount, $page);
+        $users = $repository->getUsers(PAGE_LIMIT, $offset);
         
         return $links . $this->userTable($users, $page);
 

@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('config.php');
 include('UserRepository.php');
 include('PageHandler.php');
 
