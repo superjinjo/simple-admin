@@ -143,7 +143,7 @@ class UserRepository {
                                         AND userID != :userid");
             $stmt->bindValue(':userid', $userID);
         } else {
-            $stmt = $this->pdo->prepare("SELECT COUNT(*)
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) as login_exists
                                         FROM users
                                         WHERE login = :login");
         }
