@@ -13,6 +13,11 @@ class PageHandler {
         $this->checkAccess();
     }
 
+    /**
+     * Creates a new UserRepository if necessary and returns it
+     *
+     * @return UserRepository
+     */
     protected function getRepository() {
         if(empty($this->repository)) {
             try {
@@ -74,6 +79,11 @@ class PageHandler {
         </div>';
     }
     
+    /**
+     * HTML output for errors that have occured
+     *
+     * @return string    html error output
+     */
     public function errorMessages() {
         if(empty($this->errors)) {
             return;
@@ -87,9 +97,4 @@ class PageHandler {
 
         return '<div class="error">'.$message.'</div>';
     }
-    
-    public function clearErrors() {
-        $this->errors = [];
-    }
-
 }
