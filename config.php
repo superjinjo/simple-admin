@@ -8,3 +8,5 @@ define('DB_USER', 'bob');
 define('DB_PASS', 'erdoo');
 
 define('PAGE_LIMIT', 5);
+define('DOWNLOADS_DIR', 'exports');
+define('BASE_URL', 'http://localhost/boberdoo/');
