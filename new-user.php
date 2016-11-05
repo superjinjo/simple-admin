@@ -1,10 +1,16 @@
 <?php
 include('config.php');
-include('UserRepository.php');
-include('PageHandler.php');
+include('classes/UserRepository.php');
+include('classes/PageHandler.php');
 
 class NewUserHandler extends PageHandler {
 
+    /**
+     * Outputs new user form and prefills previously submitted fields if
+     * the previous attempt to create a user was unsucessful
+     *
+     * @return string    form html
+     */
     public function mainOutput() {
         $firstName = isset($_POST['firstName']) ? $_POST['firstName'] : '';
         $lastName = isset($_POST['lastName']) ? $_POST['lastName'] : '';
@@ -34,6 +40,11 @@ class NewUserHandler extends PageHandler {
         return $output;
     }
 
+    /**
+     * Creates a user. If it was successful, it will redirect to the last page of the
+     * user management section so the user can see what they created
+     * 
+     */
     public function handlePost() {
 
         $firstName = $_POST['firstName'];

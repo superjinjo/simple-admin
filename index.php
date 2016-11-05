@@ -1,10 +1,15 @@
 <?php
 include('config.php');
-include('UserRepository.php');
-include('PageHandler.php');
+include('classes/UserRepository.php');
+include('classes/PageHandler.php');
 
 class IndexHandler extends PageHandler {
 
+    /**
+     * Lists all users in a table with 5 users par page
+     *
+     * @return string    html output
+     */
     public function mainOutput() {
         $repository = $this->getRepository();
 
@@ -25,6 +30,14 @@ class IndexHandler extends PageHandler {
 
     }
     
+    /**
+     * Creates output table with given data and a form for deleting or editing users
+     *
+     * @param array   $users list of users
+     * @param int $page  current page so that the form action can stay on that page
+     *
+     * @return string    table html
+     */
     protected function userTable(array $users, $page = 1) {
         $table = '<table>
                     <tr>
@@ -59,6 +72,15 @@ class IndexHandler extends PageHandler {
          return '<form action="index.php?page='.$page.'" method="post">'.$table.'</form>';
     }
 
+    /**
+     * Creates pagination links
+     *
+     * @param int $limit       users per page
+     * @param int $userCount   total number of users
+     * @param unknown $currentPage
+     *
+     * @return string    page links
+     */
     protected function pageLinks($limit, $userCount, $currentPage = 1) {
         if($userCount <= $limit) {
             return '';
@@ -79,6 +101,11 @@ class IndexHandler extends PageHandler {
         return trim($output) . '</div>';
     }
 
+    /**
+     * Checks to see if it needs to delete or edit user and calls appropriate function
+     *
+     * @return string|null    returns a success message or null if there was an error
+     */
     public function handlePost() {
 
         if(isset($_POST['deleteUser'])) {
@@ -88,6 +115,14 @@ class IndexHandler extends PageHandler {
         }
     }
 
+    /**
+     * Delets user specifed in request.
+     *
+     * NOTE: Users can't delete themselves so that way there isn't a situation
+     * where all the users get deleted and you can't log in again
+     *
+     * @return string|null    success message or null if there was an error
+     */
     protected function handleDelete() {
         if($_POST['deleteUser'] == $_SESSION['userID']) {
             $this->errors[] = "You cannot delete yourself!";
@@ -105,6 +140,11 @@ class IndexHandler extends PageHandler {
         $this->errors[] = $result;
     }
 
+    /**
+     * Updates user specired in request
+     *
+     * @return string|null    success message or null if there was an error.
+     */
     protected function handleUpdate() {
         $userID = $_POST['editUser'];
         $firstName = $_POST['firstName'];

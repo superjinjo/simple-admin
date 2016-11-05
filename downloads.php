@@ -1,20 +1,30 @@
 <?php
 include('config.php');
-include('UserRepository.php');
-include('PageHandler.php');
-include('FileHandler.php');
+include('classes/UserRepository.php');
+include('classes/PageHandler.php');
+include('classes/FileHandler.php');
 
 
 class DownloadsHandler extends PageHandler {
 
     protected $fileHandler;
 
+    /**
+     * Creates a FileHandler to use with the directory from config.php
+     *
+     * @return Type    Description
+     */
     public function __construct() {
         parent::__construct();
 
         $this->fileHandler =  new FileHandler(DOWNLOADS_DIR);
     }
 
+    /**
+     * Lists information and a link for all files in the downloads directory
+     *
+     * @return string    list of files
+     */
     public function mainOutput() {
 
         $files = $this->fileHandler->getAllFiles();
@@ -23,6 +33,13 @@ class DownloadsHandler extends PageHandler {
 
     }
 
+    /**
+     * Creates table output for given list of files
+     *
+     * @param array   $files
+     *
+     * @return string    table html
+     */
     protected function fileTable(array $files) {
         $table = '<table>
                     <tr>
@@ -45,6 +62,11 @@ class DownloadsHandler extends PageHandler {
          return $table;
     }
 
+    /**
+     * Uses the FileHandler to make a new user csv
+     *
+     * @return string|null    success message or null if there was an error
+     */
     public function handlePost() {
         $repository = $this->getRepository();
 
@@ -68,7 +90,6 @@ class DownloadsHandler extends PageHandler {
 $handler = new DownloadsHandler();
 
 $postMessage = isset($_POST['do_export']) ? $handler->handlePost() : null;
-
 
 ?>
 <!DOCTYPE html>

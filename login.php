@@ -1,7 +1,7 @@
 <?php
 include('config.php');
-include('UserRepository.php');
-include('PageHandler.php');
+include('classes/UserRepository.php');
+include('classes/PageHandler.php');
 
 class LoginHandler extends PageHandler {
     /**
